@@ -1,0 +1,114 @@
+IMPORT contract FROM './admission.transit';
+
+-- Test-only observer drains durable work into a Stream without network I/O.
+CREATE MODULE ObserveWork(input_name IDENTIFIER,
+  output_name IDENTIFIER, flow_name IDENTIFIER) AS BEGIN
+  CREATE PUBLIC STREAM $output_name (id TEXT NOT NULL, account TEXT NOT NULL, commitment TEXT NOT NULL);
+  CREATE PUBLIC DATAFLOW $flow_name FROM QUEUE $input_name AS job AS BEGIN
+    BEGIN ATOMIC
+      PRODUCE INTO $output_name VALUES (job.id, job.account, job.commitment);
+    END;
+  END;
+END;
+
+CREATE MODULE Pipeline() AS BEGIN
+  USE contract.Admission(NAME 'requests', NAME 'operations', NAME 'work',
+    NAME 'outcomes', NAME 'admit', 'acct_a');
+  USE ObserveWork(NAME 'work', NAME 'observed_work', NAME 'observe');
+  AUTHORIZE DATAFLOW admit AS ROLE CURRENT_ROLE;
+  AUTHORIZE DATAFLOW observe AS ROLE CURRENT_ROLE;
+  ACTIVATE DATAFLOW admit;
+END;
+
+CREATE MODULE TwoPipelines() AS BEGIN
+  USE contract.Admission(NAME 'requests', NAME 'operations', NAME 'work',
+    NAME 'outcomes', NAME 'admit', 'acct_a');
+  USE contract.Admission(NAME 'requests_b', NAME 'operations_b', NAME 'work_b',
+    NAME 'outcomes_b', NAME 'admit_b', 'acct_b');
+  USE ObserveWork(NAME 'work', NAME 'observed_work', NAME 'observe');
+  USE ObserveWork(NAME 'work_b', NAME 'observed_work_b', NAME 'observe_b');
+  AUTHORIZE DATAFLOW admit AS ROLE CURRENT_ROLE;
+  AUTHORIZE DATAFLOW admit_b AS ROLE CURRENT_ROLE;
+  AUTHORIZE DATAFLOW observe AS ROLE CURRENT_ROLE;
+  AUTHORIZE DATAFLOW observe_b AS ROLE CURRENT_ROLE;
+  ACTIVATE DATAFLOW admit;
+  ACTIVATE DATAFLOW admit_b;
+END;
+
+CREATE TARGET default AS BEGIN
+  USE contract.Admission(NAME 'requests', NAME 'operations', NAME 'work',
+    NAME 'outcomes', NAME 'admit', 'acct_a');
+END;
+
+-- Delivery counters create distinct native input requests while preserving
+-- the same logical operation ID and payload commitment on redelivery.
+CREATE TEST TARGET tests AS BEGIN
+  TEST 'admission commits operation work and accepted outcome' USING MODULES (Pipeline()) AS BEGIN
+    ENQUEUE INTO requests VALUES ('op_1', 'acct_a', 'payload_a', TRUE, TRUE, 1);
+    ASSERT WORKFLOW NAME 'admit' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (SELECT * FROM operations) EQUAL (('op_1', 'acct_a', 'payload_a'));
+    ACTIVATE DATAFLOW observe;
+    ASSERT WORKFLOW NAME 'observe' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (CONSUME id, account, commitment FROM observed_work) EQUAL (('op_1', 'acct_a', 'payload_a'));
+    ASSERT ROWS (CONSUME id, phase FROM outcomes) EQUAL (('op_1', 'accepted'));
+  END;
+  TEST 'identical redelivery does not duplicate durable work or output' USING MODULES (Pipeline()) AS BEGIN
+    ENQUEUE INTO requests VALUES ('op_1', 'acct_a', 'payload_a', TRUE, TRUE, 2);
+    ASSERT WORKFLOW NAME 'admit' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ENQUEUE INTO requests VALUES ('op_1', 'acct_a', 'payload_a', TRUE, TRUE, 3);
+    ASSERT WORKFLOW NAME 'admit' COMPLETED 2 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (SELECT * FROM operations) EQUAL (('op_1', 'acct_a', 'payload_a'));
+    ACTIVATE DATAFLOW observe;
+    ASSERT WORKFLOW NAME 'observe' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (CONSUME id, account, commitment FROM observed_work) EQUAL (('op_1', 'acct_a', 'payload_a'));
+    ASSERT ROWS (CONSUME id, phase FROM outcomes) EQUAL (('op_1', 'accepted'));
+  END;
+  TEST 'conflicting operation reuse preserves the original work' USING MODULES (Pipeline()) AS BEGIN
+    ENQUEUE INTO requests VALUES ('op_1', 'acct_a', 'payload_a', TRUE, TRUE, 4);
+    ASSERT WORKFLOW NAME 'admit' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ENQUEUE INTO requests VALUES ('op_1', 'acct_a', 'payload_b', TRUE, TRUE, 5);
+    ASSERT WORKFLOW NAME 'admit' COMPLETED 1 REFUSED 1 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (SELECT * FROM operations) EQUAL (('op_1', 'acct_a', 'payload_a'));
+    ACTIVATE DATAFLOW observe;
+    ASSERT WORKFLOW NAME 'observe' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (CONSUME id, account, commitment FROM observed_work) EQUAL (('op_1', 'acct_a', 'payload_a'));
+    ASSERT ROWS (CONSUME id, phase FROM outcomes) EQUAL (('op_1', 'accepted'));
+  END;
+  TEST 'refusal after writes rolls back all three resources' USING MODULES (Pipeline()) AS BEGIN
+    ENQUEUE INTO requests VALUES ('op_1', 'acct_a', 'payload_a', TRUE, FALSE, 6);
+    ASSERT WORKFLOW NAME 'admit' COMPLETED 0 REFUSED 1 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (SELECT * FROM operations) EQUAL ();
+    ASSERT ROWS (CONSUME id, phase FROM outcomes) EQUAL ();
+    ENQUEUE INTO requests VALUES ('op_1', 'acct_a', 'payload_a', TRUE, TRUE, 7);
+    ASSERT WORKFLOW NAME 'admit' COMPLETED 1 REFUSED 1 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (SELECT * FROM operations) EQUAL (('op_1', 'acct_a', 'payload_a'));
+    ACTIVATE DATAFLOW observe;
+    ASSERT WORKFLOW NAME 'observe' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (CONSUME id, account, commitment FROM observed_work) EQUAL (('op_1', 'acct_a', 'payload_a'));
+    ASSERT ROWS (CONSUME id, phase FROM outcomes) EQUAL (('op_1', 'accepted'));
+  END;
+  TEST 'wrong account and denied admission leave no state' USING MODULES (Pipeline()) AS BEGIN
+    ENQUEUE INTO requests VALUES ('op_1', 'acct_b', 'payload_a', TRUE, TRUE, 8);
+    ENQUEUE INTO requests VALUES ('op_2', 'acct_a', 'payload_b', FALSE, TRUE, 9);
+    ASSERT WORKFLOW NAME 'admit' COMPLETED 0 REFUSED 2 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (SELECT * FROM operations) EQUAL ();
+    ACTIVATE DATAFLOW observe;
+    ASSERT WORKFLOW NAME 'observe' COMPLETED 0 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (CONSUME id, account, commitment FROM observed_work) EQUAL ();
+    ASSERT ROWS (CONSUME id, phase FROM outcomes) EQUAL ();
+  END;
+  TEST 'separate instances may reuse operation identity' USING MODULES (TwoPipelines()) AS BEGIN
+    ENQUEUE INTO requests VALUES ('op_1', 'acct_a', 'payload_a', TRUE, TRUE, 10);
+    ENQUEUE INTO requests_b VALUES ('op_1', 'acct_b', 'payload_b', TRUE, TRUE, 11);
+    ASSERT WORKFLOW NAME 'admit' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT WORKFLOW NAME 'admit_b' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (SELECT * FROM operations) EQUAL (('op_1', 'acct_a', 'payload_a'));
+    ASSERT ROWS (SELECT * FROM operations_b) EQUAL (('op_1', 'acct_b', 'payload_b'));
+    ACTIVATE DATAFLOW observe;
+    ASSERT WORKFLOW NAME 'observe' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (CONSUME id, account, commitment FROM observed_work) EQUAL (('op_1', 'acct_a', 'payload_a'));
+    ACTIVATE DATAFLOW observe_b;
+    ASSERT WORKFLOW NAME 'observe_b' COMPLETED 1 REFUSED 0 WITHIN 1000 OBSERVATIONS;
+    ASSERT ROWS (CONSUME id, account, commitment FROM observed_work_b) EQUAL (('op_1', 'acct_b', 'payload_b'));
+  END;
+END;

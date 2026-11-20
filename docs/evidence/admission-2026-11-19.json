@@ -1,0 +1,222 @@
+{
+  "format": "transit_test_v1",
+  "definition": "06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5",
+  "compiler_revision": "c1f2680d9353175e58ad503e750e7b4da76a84c5",
+  "compiler_digest": "f24adb89ff7fdf36f704431d4e141729186c32c32cd495bae900366943fd51b2",
+  "target": "tests",
+  "input_digest": "15a5d4dada57331bb1ec6ead31eef07da63ef62b8b790123db03cb08e6d34429",
+  "sql_digest": "30e5da6d07458af18fec84343e069087888ee4df5f5db8973e2d16e75b7c30fa",
+  "complete": false,
+  "ok": false,
+  "compiler_peak_bytes": 8133062,
+  "cases": [
+    {
+      "name": "admission commits operation work and accepted outcome",
+      "identity": "3e7f08bd421e6c929f5c81631bcd8929be4708c48a773bceca41b1410406ea98",
+      "sql_digest": "caad55c50b7cc6a6b63ecb3a9a9da00d367c667e333b90300df4217707519ea0",
+      "location": {
+        "source": "root/build.transit",
+        "source_encoding": "utf8",
+        "source_truncated": false,
+        "statement": null,
+        "offset": "1922",
+        "length": "653",
+        "line": "46",
+        "byte_column": "3"
+      },
+      "status": "failed",
+      "error_code": "TestDeadline",
+      "observation": {
+        "actions": 3,
+        "rows": 0,
+        "bytes": 0,
+        "operation": 11,
+        "failure": null,
+        "resources": {
+          "memory_peak_bytes": 29740559,
+          "storage_reserved_bytes": 1310072
+        }
+      },
+      "action_location": {
+        "source": "root/admission.transit",
+        "source_encoding": "utf8",
+        "source_truncated": false,
+        "statement": null,
+        "offset": "645",
+        "length": "107",
+        "line": "16",
+        "byte_column": "3"
+      }
+    },
+    {
+      "name": "identical redelivery does not duplicate durable work or output",
+      "identity": "04db5744f7131f26a4b11aa4c2c7a87000e66d1f59e123d8267f93e7ac4e38ca",
+      "sql_digest": "cf0b34b73f2c0d8f9999d508b5f5fddc8faa1b91705201e2858982a265caedab",
+      "location": {
+        "source": "root/build.transit",
+        "source_encoding": "utf8",
+        "source_truncated": false,
+        "statement": null,
+        "offset": "2578",
+        "length": "824",
+        "line": "55",
+        "byte_column": "3"
+      },
+      "status": "not_run",
+      "error_code": null,
+      "observation": {
+        "actions": 0,
+        "rows": 0,
+        "bytes": 0,
+        "operation": null,
+        "failure": null,
+        "resources": {
+          "memory_peak_bytes": 0,
+          "storage_reserved_bytes": 0
+        }
+      },
+      "action_location": null
+    },
+    {
+      "name": "conflicting operation reuse preserves the original work",
+      "identity": "47e3bdf0b04f496a5a4415d5210edb2198c8592448d42657b145b2751f85a0e8",
+      "sql_digest": "c7016776cd93ec82c6db7a14721277cf9bfb4d9c5ca0b235ec8448efe46be11a",
+      "location": {
+        "source": "root/build.transit",
+        "source_encoding": "utf8",
+        "source_truncated": false,
+        "statement": null,
+        "offset": "3405",
+        "length": "817",
+        "line": "66",
+        "byte_column": "3"
+      },
+      "status": "not_run",
+      "error_code": null,
+      "observation": {
+        "actions": 0,
+        "rows": 0,
+        "bytes": 0,
+        "operation": null,
+        "failure": null,
+        "resources": {
+          "memory_peak_bytes": 0,
+          "storage_reserved_bytes": 0
+        }
+      },
+      "action_location": null
+    },
+    {
+      "name": "refusal after writes rolls back all three resources",
+      "identity": "2e9022448a23e1a457d3f0c21d386e78e1da4d83b9f906acfcf7e89df3e2bfd8",
+      "sql_digest": "3daa4ece1e37806401417a8554875996784d7352b4f54a2699913b7500e0dd43",
+      "location": {
+        "source": "root/build.transit",
+        "source_encoding": "utf8",
+        "source_truncated": false,
+        "statement": null,
+        "offset": "4225",
+        "length": "927",
+        "line": "77",
+        "byte_column": "3"
+      },
+      "status": "not_run",
+      "error_code": null,
+      "observation": {
+        "actions": 0,
+        "rows": 0,
+        "bytes": 0,
+        "operation": null,
+        "failure": null,
+        "resources": {
+          "memory_peak_bytes": 0,
+          "storage_reserved_bytes": 0
+        }
+      },
+      "action_location": null
+    },
+    {
+      "name": "wrong account and denied admission leave no state",
+      "identity": "897ee8e1526be3a9dc48acabbb085b7ccaf7a9a9a84a521d9c5ae5f619252d72",
+      "sql_digest": "39f2adfa4fa6cfacce8fe3067c4ee3f364518bb3bc60182ff9fee5ee9badf919",
+      "location": {
+        "source": "root/build.transit",
+        "source_encoding": "utf8",
+        "source_truncated": false,
+        "statement": null,
+        "offset": "5155",
+        "length": "649",
+        "line": "90",
+        "byte_column": "3"
+      },
+      "status": "not_run",
+      "error_code": null,
+      "observation": {
+        "actions": 0,
+        "rows": 0,
+        "bytes": 0,
+        "operation": null,
+        "failure": null,
+        "resources": {
+          "memory_peak_bytes": 0,
+          "storage_reserved_bytes": 0
+        }
+      },
+      "action_location": null
+    },
+    {
+      "name": "separate instances may reuse operation identity",
+      "identity": "699f41cc87e38b10dd9a1b78ad0bceabb9911a5ad89bd7ccab61183eb0944b6e",
+      "sql_digest": "307b54277a5bca9cbf26d055b2e6f43170bd1d793d2c4a5358e84ce5028b1d8e",
+      "location": {
+        "source": "root/build.transit",
+        "source_encoding": "utf8",
+        "source_truncated": false,
+        "statement": null,
+        "offset": "5807",
+        "length": "1055",
+        "line": "100",
+        "byte_column": "3"
+      },
+      "status": "not_run",
+      "error_code": null,
+      "observation": {
+        "actions": 0,
+        "rows": 0,
+        "bytes": 0,
+        "operation": null,
+        "failure": null,
+        "resources": {
+          "memory_peak_bytes": 0,
+          "storage_reserved_bytes": 0
+        }
+      },
+      "action_location": null
+    }
+  ],
+  "sources": [
+    {
+      "package": "root",
+      "path": "admission.transit",
+      "digest": "9df8473cd7cf63940e95c72c87426c5b3edcb62f805332719e4d28e99daf83cf"
+    },
+    {
+      "package": "root",
+      "path": "build.transit",
+      "digest": "b846067f8c43751624f679ff5083b30b7df02ca26fcd72cc9f71df90d55a6f94"
+    }
+  ],
+  "dependencies": [],
+  "limits": {
+    "cases": 128,
+    "actions": 1024,
+    "rows": 10000,
+    "result_bytes": 16777216,
+    "report_bytes": 1048576,
+    "case_ms": 30000,
+    "suite_ms": 300000,
+    "cleanup_ms": 5000,
+    "host_bytes": 268435456,
+    "storage_bytes": 268435456
+  }
+}

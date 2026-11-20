@@ -15,6 +15,10 @@ retains its statuses and initial service scopes. The companion
 [state and dataflow models](integration-state-models.md) apply this design
 to every integration, including its first executable workflow and failure cases.
 
+Implementation progress and the first blocking gate are recorded in
+[execution requirements](../compiler-requirements.md). A source plan does not
+override those measured compiler and runtime results.
+
 ## Source basis and executable boundary
 
 The design follows `tpackages` at

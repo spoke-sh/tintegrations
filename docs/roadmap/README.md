@@ -12,6 +12,9 @@ productivity, support, and commerce integrations follow. All service integration
 are **Planned**. The repository currently contains development tooling and an
 executable bootstrap fixture, with no service implementations.
 
+Implementation is currently gated by the [recorded execution requirements](../compiler-requirements.md).
+Qualification commands preserve failures; no service milestone has advanced.
+
 The proposed [implementation plan](integration-implementation-plan.md) defines
 native DATAFLOW/STREAM/QUEUE/TABLE/DOCUMENT/KV composition, transaction boundaries,
 recovery, implementation units, and compiler/runtime qualification gates. The

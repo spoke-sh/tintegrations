@@ -8,9 +8,13 @@ default:
 build integration:
     transit build -f {{ quote("integrations/" + integration + "/build.transit") }}
 
-# Check formatting and build/test the isolated bootstrap with the pinned tools.
+# Check formatting, evidence tooling, and the isolated bootstrap (not service qualification).
 check:
     nix flake check --no-update-lock-file --print-build-logs
+
+# Run native admission conformance; unresolved runtime failures remain failures.
+contracts:
+    transit test -f tests/contracts/build.transit --target tests
 
 # Format repository tooling; the pinned CLIs have no Transit source formatter.
 fmt:

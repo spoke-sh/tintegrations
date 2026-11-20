@@ -26,10 +26,18 @@ upgrading pins; upstream source plans are not evidence of executable support.
 - Independent `integrations/<name>/` package conventions.
 - [Bootstrap fixture](../../tests/bootstrap/build.transit) for module composition,
   instance isolation, fresh test state, and duplicate-key refusal.
+- [Native capability probes](../compiler-requirements.md), a failure-preserving
+  evidence recorder, and the [admission conformance source](../../tests/contracts/build.transit).
+  These add qualification requirements and observed blockers, not service support.
 
 The bootstrap passed on x86_64 Linux when the repository was initialized; all
 four declared platform definitions evaluated. This establishes the bootstrap
 subset, not external effects, service APIs, or selective workspace resolution.
+
+The first implementation attempt is blocked at the native execution gates
+recorded in [execution requirements](../compiler-requirements.md). The compiler
+probe command correctly exits nonzero. Native admission conformance is a
+separate runtime check; it must pass before the first provider is qualified.
 
 ## Delivery sequence
 

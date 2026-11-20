@@ -8,6 +8,8 @@
   concrete primitive ownership and first workflows for all 18 integrations.
 - [Integration conventions](../integrations/README.md): package layout, public
   entries, dependency boundaries, and contribution workflow.
+- [Execution requirements](compiler-requirements.md): native capability probes,
+  admission conformance, recorded failures, and the gate blocking service work.
 - [Repository README](../README.md): development environment and commands.
 
 Delivery plans belong in `docs/roadmap/`. Keep current integration behavior,

@@ -27,20 +27,27 @@ integrations/
     examples/        minimal consumer compositions
 tests/
   bootstrap/         executable toolchain smoke fixture
+  compiler/          minimal native capability probes
+  contracts/         native admission conformance requirements
 ```
 
 The [roadmap](docs/roadmap/README.md) defines the initial catalog of 18 integrations,
 their delivery order, scope, and completion criteria. It begins with Stripe,
 GitHub, Salesforce, and HubSpot, then extends to engineering, collaboration,
 knowledge, productivity, support, and commerce services.
-This bootstrap contains development tooling and conventions; no service
+This repository contains development tooling and qualification fixtures; no service
 implementations are included yet. See [integration conventions](integrations/README.md)
 before adding the first one. The [documentation index](docs/README.md) links the
 owning guides and plans.
 
 The proposed [implementation plan](docs/roadmap/integration-implementation-plan.md)
 and [state/dataflow models](docs/roadmap/integration-state-models.md) describe native
-Transit composition for all 18 integrations and are ready for design review.
+Transit composition for all 18 integrations and guide the implementation sequence.
+
+Implementation has reached the first [execution gate](docs/compiler-requirements.md).
+The pinned compiler refuses required Document/KV, command, private-state, and
+HTTP-effect declarations. Service implementation remains blocked; probe failures
+are not accepted as passing integration tests.
 
 The consumer model follows `tpackages`: pin one repository revision, select the
 integration subdirectories needed by the application, and import their public
@@ -66,13 +73,15 @@ just fmt
 ```
 
 The shell provides the upstream `transit` and `transitc` executables, Git, Just,
-and nixfmt. `.envrc` enables optional direnv support. No sibling checkout is
+Python, and nixfmt. `.envrc` enables optional direnv support. No sibling checkout is
 required.
 
 | Command | Behavior |
 | --- | --- |
 | `just` | List available tasks. |
-| `just check` | Run Nix/Just formatting checks and the bootstrap build/tests in the Nix sandbox, keeping the lock unchanged. |
+| `just check` | Check Nix/Just formatting, the evidence recorder, and bootstrap build/tests in the Nix sandbox. This is not integration qualification. |
+| `just contracts` | Run native admission conformance requirements. Runtime failures remain nonzero. |
+| `just probes` | Record compiler acceptance for every capability probe. Exits nonzero while any probe fails. |
 | `just build <name>` | Build `integrations/<name>/build.transit`. Requires an implemented integration. |
 | `just test <name>` | Run the selected integration's `tests` target. |
 | `just fmt` | Format `flake.nix` and `justfile`. |
@@ -96,4 +105,5 @@ where they run.
 
 To upgrade, change the relevant full commit hash in `flake.nix`, run
 `nix flake lock`, review both files, and re-run `nix develop --command just check`
-plus the build/tests for each implemented integration.
+plus `just contracts`, `just probes`, and the build/tests for each implemented
+integration. Review the full reports; compilation alone does not qualify execution.

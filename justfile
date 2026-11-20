@@ -17,6 +17,10 @@ fmt:
     nixfmt flake.nix
     just --fmt
 
+# Record native compiler acceptance; any failed probe fails this command.
+probes:
+    python3 tooling/probe.py
+
 # Run one integration's Transit contract tests.
 test integration:
     transit test -f {{ quote("integrations/" + integration + "/build.transit") }} --target tests

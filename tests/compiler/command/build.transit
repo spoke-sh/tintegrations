@@ -1,0 +1,5 @@
+CREATE TARGET default AS BEGIN
+  CREATE PUBLIC DATAFLOW admit FROM COMMAND (id TEXT) AS request AS BEGIN ATOMIC
+    REQUIRE request.id <> '' ELSE 'InvalidOperation';
+  END;
+END;

@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-20T02:55:13.461968+00:00",
+  "executable": "/nix/store/9rqyf6f9rhkzxikgxbiryppxmcpjjxy5-transit-0.0.1/bin/transit",
+  "declared_pins": {
+    "transit-upstream": "c1f2680d9353175e58ad503e750e7b4da76a84c5",
+    "transitc-upstream": "61536eaa510e2ba8826c08b4f41072ed66f41ed5"
+  },
+  "recommended_invocation": "nix develop --no-update-lock-file -c python3 tooling/probe.py",
+  "scope": "Compiler acceptance only; no installation, recovery, or provider tests.",
+  "probes": [
+    {
+      "entry": "tests/compiler/command/build.transit",
+      "sources": {
+        "build.transit": "11391eb64cb7c5e76c966477929984dd4e0706bb761eead7828d95dd37c1e40c"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/command/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "build_failed",
+      "exit_code": 1,
+      "stdout": "{\"version\":1,\"definition\":\"06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5\",\"code\":\"application.source.syntax\",\"category\":\"syntax\",\"stage\":\"parse\",\"outcome\":\"not_submitted\",\"evidence\":\"local_before_dispatch\",\"message\":\"Invalid application source syntax. Correct the statement at the indicated location using the supported .transit grammar.\",\"cause\":null,\"identity\":null,\"location\":{\"source\":\"root/build.transit\",\"source_encoding\":\"utf8\",\"source_truncated\":false,\"statement\":null,\"offset\":\"67\",\"length\":\"7\",\"line\":\"2\",\"byte_column\":\"37\"},\"facts\":[{\"field\":\"native_cause\",\"origin\":\"owner\",\"availability\":\"provided\",\"value\":{\"text\":\"InvalidSourceTemplate\"}},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"actions\":[{\"kind\":\"correct_input\",\"target\":null},null,null,null]}\n",
+      "stderr": ""
+    },
+    {
+      "entry": "tests/compiler/document/build.transit",
+      "sources": {
+        "build.transit": "89e04854147427fb4e6033de3230b8b96448e42db2705bdd94152f706b6293da"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/document/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "build_failed",
+      "exit_code": 1,
+      "stdout": "{\"version\":1,\"definition\":\"06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5\",\"code\":\"application.source.unsupported\",\"category\":\"unsupported\",\"stage\":\"compile\",\"outcome\":\"not_submitted\",\"evidence\":\"local_before_dispatch\",\"message\":\"This construct is outside the supported source or runtime profile. Use an admitted source form and public-data dependency; compilation cannot enable unavailable runtime facilities.\",\"cause\":null,\"identity\":null,\"location\":{\"source\":\"root/build.transit\",\"source_encoding\":\"utf8\",\"source_truncated\":false,\"statement\":null,\"offset\":\"47\",\"length\":\"8\",\"line\":\"2\",\"byte_column\":\"17\"},\"facts\":[{\"field\":\"native_cause\",\"origin\":\"owner\",\"availability\":\"provided\",\"value\":{\"text\":\"RuntimePrivateOrUnsupportedDeclaration\"}},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"actions\":[{\"kind\":\"correct_input\",\"target\":null},null,null,null]}\n",
+      "stderr": ""
+    },
+    {
+      "entry": "tests/compiler/effects/build.transit",
+      "sources": {
+        "build.transit": "e1fc286b9875ae3d76ae9e8c972dccea0faaa232ab79ffcb0f8a19d8f0352ec2"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/effects/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "build_failed",
+      "exit_code": 1,
+      "stdout": "{\"version\":1,\"definition\":\"06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5\",\"code\":\"application.source.unsupported\",\"category\":\"unsupported\",\"stage\":\"compile\",\"outcome\":\"not_submitted\",\"evidence\":\"local_before_dispatch\",\"message\":\"This construct is outside the supported source or runtime profile. Use an admitted source form and public-data dependency; compilation cannot enable unavailable runtime facilities.\",\"cause\":null,\"identity\":null,\"location\":{\"source\":\"root/build.transit\",\"source_encoding\":\"utf8\",\"source_truncated\":false,\"statement\":null,\"offset\":\"40\",\"length\":\"4\",\"line\":\"2\",\"byte_column\":\"10\"},\"facts\":[{\"field\":\"native_cause\",\"origin\":\"owner\",\"availability\":\"provided\",\"value\":{\"text\":\"RuntimePrivateOrUnsupportedDeclaration\"}},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"actions\":[{\"kind\":\"correct_input\",\"target\":null},null,null,null]}\n",
+      "stderr": ""
+    },
+    {
+      "entry": "tests/compiler/exports/build.transit",
+      "sources": {
+        "build.transit": "3601dae96775460c71ca5a2a15c8550d05bbecbd282695cab01ad5cda4ef7035",
+        "selected.transit": "02d1d46f3b7ca7fd8531d7eaa08679ad0c5b2dec19bd8a28b5ef97473b4318aa"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/exports/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "build_failed",
+      "exit_code": 1,
+      "stdout": "{\"version\":1,\"definition\":\"06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5\",\"code\":\"application.source.syntax\",\"category\":\"syntax\",\"stage\":\"parse\",\"outcome\":\"not_submitted\",\"evidence\":\"local_before_dispatch\",\"message\":\"Invalid application source syntax. Correct the statement at the indicated location using the supported .transit grammar.\",\"cause\":null,\"identity\":null,\"location\":{\"source\":\"root/build.transit\",\"source_encoding\":\"utf8\",\"source_truncated\":false,\"statement\":null,\"offset\":\"23\",\"length\":\"4\",\"line\":\"1\",\"byte_column\":\"24\"},\"facts\":[{\"field\":\"native_cause\",\"origin\":\"owner\",\"availability\":\"provided\",\"value\":{\"text\":\"InvalidSourceSyntax\"}},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"actions\":[{\"kind\":\"correct_input\",\"target\":null},null,null,null]}\n",
+      "stderr": ""
+    },
+    {
+      "entry": "tests/compiler/kv/build.transit",
+      "sources": {
+        "build.transit": "b85ca9ff51449a6a3230a705c6e5c4cf41f6dc64c6dbb771b2d902c327b5e15b"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/kv/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "build_failed",
+      "exit_code": 1,
+      "stdout": "{\"version\":1,\"definition\":\"06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5\",\"code\":\"application.source.unsupported\",\"category\":\"unsupported\",\"stage\":\"compile\",\"outcome\":\"not_submitted\",\"evidence\":\"local_before_dispatch\",\"message\":\"This construct is outside the supported source or runtime profile. Use an admitted source form and public-data dependency; compilation cannot enable unavailable runtime facilities.\",\"cause\":null,\"identity\":null,\"location\":{\"source\":\"root/build.transit\",\"source_encoding\":\"utf8\",\"source_truncated\":false,\"statement\":null,\"offset\":\"47\",\"length\":\"2\",\"line\":\"2\",\"byte_column\":\"17\"},\"facts\":[{\"field\":\"native_cause\",\"origin\":\"owner\",\"availability\":\"provided\",\"value\":{\"text\":\"RuntimePrivateOrUnsupportedDeclaration\"}},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"actions\":[{\"kind\":\"correct_input\",\"target\":null},null,null,null]}\n",
+      "stderr": ""
+    },
+    {
+      "entry": "tests/compiler/mixed-state/build.transit",
+      "sources": {
+        "build.transit": "c90adf480f233ede0a2f6d2cc6518487a24d180974ef7814f6137076d34e3546"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/mixed-state/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "build_failed",
+      "exit_code": 1,
+      "stdout": "{\"version\":1,\"definition\":\"06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5\",\"code\":\"application.source.unsupported\",\"category\":\"unsupported\",\"stage\":\"compile\",\"outcome\":\"not_submitted\",\"evidence\":\"local_before_dispatch\",\"message\":\"This construct is outside the supported source or runtime profile. Use an admitted source form and public-data dependency; compilation cannot enable unavailable runtime facilities.\",\"cause\":null,\"identity\":null,\"location\":{\"source\":\"root/build.transit\",\"source_encoding\":\"utf8\",\"source_truncated\":false,\"statement\":null,\"offset\":\"103\",\"length\":\"8\",\"line\":\"3\",\"byte_column\":\"17\"},\"facts\":[{\"field\":\"native_cause\",\"origin\":\"owner\",\"availability\":\"provided\",\"value\":{\"text\":\"RuntimePrivateOrUnsupportedDeclaration\"}},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"actions\":[{\"kind\":\"correct_input\",\"target\":null},null,null,null]}\n",
+      "stderr": ""
+    },
+    {
+      "entry": "tests/compiler/private/build.transit",
+      "sources": {
+        "build.transit": "f848e0fba8fa25e45c831d257e833ee68053ab0fb5cb216b916b799160defbbc"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/private/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "build_failed",
+      "exit_code": 1,
+      "stdout": "{\"version\":1,\"definition\":\"06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5\",\"code\":\"application.source.unsupported\",\"category\":\"unsupported\",\"stage\":\"compile\",\"outcome\":\"not_submitted\",\"evidence\":\"local_before_dispatch\",\"message\":\"This construct is outside the supported source or runtime profile. Use an admitted source form and public-data dependency; compilation cannot enable unavailable runtime facilities.\",\"cause\":null,\"identity\":null,\"location\":{\"source\":\"root/build.transit\",\"source_encoding\":\"utf8\",\"source_truncated\":false,\"statement\":null,\"offset\":\"40\",\"length\":\"7\",\"line\":\"2\",\"byte_column\":\"10\"},\"facts\":[{\"field\":\"native_cause\",\"origin\":\"owner\",\"availability\":\"provided\",\"value\":{\"text\":\"RuntimePrivateOrUnsupportedDeclaration\"}},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"actions\":[{\"kind\":\"correct_input\",\"target\":null},null,null,null]}\n",
+      "stderr": ""
+    },
+    {
+      "entry": "tests/compiler/queue-program/build.transit",
+      "sources": {
+        "build.transit": "4c810217678d5e633dc8bce6cf69c077152229a5a1bde6fbdd9913095383d14d"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/queue-program/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "compiled",
+      "exit_code": 0,
+      "stdout": "{\"ok\":true,\"action\":\"check\",\"target\":\"default\",\"input_digest\":\"891898f1a6273aad9252ce4fc710511d305f1dc9796a774d651d634df6f80626\",\"sql_digest\":\"a10f1c667607d15ece1a740391708d62c918c464d5c7ebf865b1181bc8c1a764\",\"statements\":4}\n",
+      "stderr": ""
+    },
+    {
+      "entry": "tests/compiler/stream-input/build.transit",
+      "sources": {
+        "build.transit": "d85e87c599839953e6c75f769f7ec60649011b2e5a99f1bcbacb8a52af187f17"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/stream-input/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "build_failed",
+      "exit_code": 1,
+      "stdout": "{\"version\":1,\"definition\":\"06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5\",\"code\":\"application.source.syntax\",\"category\":\"syntax\",\"stage\":\"parse\",\"outcome\":\"not_submitted\",\"evidence\":\"local_before_dispatch\",\"message\":\"Invalid application source syntax. Correct the statement at the indicated location using the supported .transit grammar.\",\"cause\":null,\"identity\":null,\"location\":{\"source\":\"root/build.transit\",\"source_encoding\":\"utf8\",\"source_truncated\":false,\"statement\":null,\"offset\":\"166\",\"length\":\"6\",\"line\":\"4\",\"byte_column\":\"39\"},\"facts\":[{\"field\":\"native_cause\",\"origin\":\"owner\",\"availability\":\"provided\",\"value\":{\"text\":\"InvalidSourceTemplate\"}},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"actions\":[{\"kind\":\"correct_input\",\"target\":null},null,null,null]}\n",
+      "stderr": ""
+    },
+    {
+      "entry": "tests/compiler/timer/build.transit",
+      "sources": {
+        "build.transit": "8107e6293bcba3445646a05861edba8140c51a65f8207e0e64dcd614b1002191"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/timer/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "build_failed",
+      "exit_code": 1,
+      "stdout": "{\"version\":1,\"definition\":\"06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5\",\"code\":\"application.source.syntax\",\"category\":\"syntax\",\"stage\":\"parse\",\"outcome\":\"not_submitted\",\"evidence\":\"local_before_dispatch\",\"message\":\"Invalid application source syntax. Correct the statement at the indicated location using the supported .transit grammar.\",\"cause\":null,\"identity\":null,\"location\":{\"source\":\"root/build.transit\",\"source_encoding\":\"utf8\",\"source_truncated\":false,\"statement\":null,\"offset\":\"120\",\"length\":\"5\",\"line\":\"3\",\"byte_column\":\"39\"},\"facts\":[{\"field\":\"native_cause\",\"origin\":\"owner\",\"availability\":\"provided\",\"value\":{\"text\":\"InvalidSourceTemplate\"}},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"actions\":[{\"kind\":\"correct_input\",\"target\":null},null,null,null]}\n",
+      "stderr": ""
+    },
+    {
+      "entry": "tests/compiler/workspace/build.transit",
+      "sources": {
+        "build.transit": "1ecc98a05a95d2e06e7e7647e66d4738aec256a0cb221ad835b9f417b38c25d3",
+        "selected/build.transit": "d59519fc2f2c689eabbf7819bfce7a48cd6bbfb9da3edc1e0f44a1e8741d3fba"
+      },
+      "command": [
+        "transit",
+        "build",
+        "-f",
+        "tests/compiler/workspace/build.transit",
+        "--check",
+        "--format",
+        "json",
+        "--color",
+        "off"
+      ],
+      "runtime_tests": "not_run",
+      "provider_verification": "not_run",
+      "status": "build_failed",
+      "exit_code": 1,
+      "stdout": "{\"version\":1,\"definition\":\"06091bff7096eeaceb3fc0d62bc0aa0d1bc184b20c3b275df74e8c93bf8b13e5\",\"code\":\"application.source.unsupported\",\"category\":\"unsupported\",\"stage\":\"compile\",\"outcome\":\"not_submitted\",\"evidence\":\"local_before_dispatch\",\"message\":\"This construct is outside the supported source or runtime profile. Use an admitted source form and public-data dependency; compilation cannot enable unavailable runtime facilities.\",\"cause\":null,\"identity\":null,\"location\":{\"source\":\"root/build.transit\",\"source_encoding\":\"utf8\",\"source_truncated\":false,\"statement\":null,\"offset\":\"0\",\"length\":\"9\",\"line\":\"1\",\"byte_column\":\"1\"},\"facts\":[{\"field\":\"native_cause\",\"origin\":\"owner\",\"availability\":\"provided\",\"value\":{\"text\":\"UnsupportedBuildStatement\"}},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"actions\":[{\"kind\":\"correct_input\",\"target\":null},null,null,null]}\n",
+      "stderr": ""
+    }
+  ]
+}

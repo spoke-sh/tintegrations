@@ -1,0 +1,4 @@
+CREATE TARGET default AS BEGIN
+  CREATE PUBLIC DOCUMENT policy (id TEXT PRIMARY KEY, enabled BOOLEAN NOT NULL)
+    WITH (profile = 'versioned');
+END;

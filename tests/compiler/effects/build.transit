@@ -1,0 +1,7 @@
+CREATE TARGET default AS BEGIN
+  CREATE SINK stripe INTO HTTP WITH (
+    endpoint = 'https://api.stripe.com/v1/customers', method = 'POST',
+    request_encoding = 'form', response = 'protected_bytes',
+    max_attempts = 1, unknown_outcome = 'retain'
+  );
+END;

@@ -1,0 +1,7 @@
+/.direnv/
+**/.transit/
+/result
+/result-*
+.env
+.env.*
+!.env.example

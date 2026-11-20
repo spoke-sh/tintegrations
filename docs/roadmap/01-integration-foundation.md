@@ -33,6 +33,11 @@ subset, not external effects, service APIs, or selective workspace resolution.
 
 ## Delivery sequence
 
+The proposed [implementation plan](integration-implementation-plan.md) and
+[provider models](integration-state-models.md) make the resource ownership,
+dataflow transitions, native capability gates, and review units concrete. They
+are design artifacts; executable acceptance remains open.
+
 1. Define public client/resource modules, explicit account/tenant bindings,
    selected read/write capabilities, and optional webhook/synchronization modules.
    Imports alone must not activate endpoints or background work.

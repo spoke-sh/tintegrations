@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Microsoft Outlook state/dataflow model](integration-state-models.md#microsoft-outlook).
+
 Let applications compose selected mail and calendar workflows through independently selectable Outlook modules.
 Planned package root: `integrations/microsoft-outlook/`.
 

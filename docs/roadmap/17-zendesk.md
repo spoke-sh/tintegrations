@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Zendesk state/dataflow model](integration-state-models.md#zendesk).
+
 Let applications track support cases and submit explicit ticket updates with inspectable outcomes.
 Planned package root: `integrations/zendesk/`.
 

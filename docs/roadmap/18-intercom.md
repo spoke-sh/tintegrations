@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Intercom state/dataflow model](integration-state-models.md#intercom).
+
 Let applications maintain customer conversation context and perform selected support workflow actions.
 Planned package root: `integrations/intercom/`.
 

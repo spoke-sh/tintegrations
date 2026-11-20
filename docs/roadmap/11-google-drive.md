@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Google Drive state/dataflow model](integration-state-models.md#google-drive).
+
 Let applications track selected files and folders and exchange bounded content with durable progress.
 Planned package root: `integrations/google-drive/`.
 

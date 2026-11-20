@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Slack state/dataflow model](integration-state-models.md#slack).
+
 Let applications observe selected conversations and deliver durable, attributable workflow messages.
 Planned package root: `integrations/slack/`.
 

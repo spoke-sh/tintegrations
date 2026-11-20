@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Stripe state/dataflow model](integration-state-models.md#stripe).
+
 Let applications connect customer billing records to Transit workflows and observe checkout and subscription outcomes.
 Planned package root: `integrations/stripe/`.
 

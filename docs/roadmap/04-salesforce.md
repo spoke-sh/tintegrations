@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Salesforce state/dataflow model](integration-state-models.md#salesforce).
+
 Let applications synchronize selected sales records and submit traceable CRM updates without flattening organization-specific schemas.
 Planned package root: `integrations/salesforce/`.
 

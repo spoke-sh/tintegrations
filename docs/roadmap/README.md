@@ -12,6 +12,12 @@ productivity, support, and commerce integrations follow. All service integration
 are **Planned**. The repository currently contains development tooling and an
 executable bootstrap fixture, with no service implementations.
 
+The proposed [implementation plan](integration-implementation-plan.md) defines
+native DATAFLOW/STREAM/QUEUE/TABLE/DOCUMENT/KV composition, transaction boundaries,
+recovery, implementation units, and compiler/runtime qualification gates. The
+[per-integration models](integration-state-models.md) map those contracts to all
+18 services. Both are for review; they do not change milestone status.
+
 Each integration is an independent root under `integrations/<name>/`. Consumers
 select public modules at one pinned repository revision, plus explicit transitive
 dependencies. A shared provider or delivery phase must not force installation of

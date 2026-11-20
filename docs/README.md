@@ -2,6 +2,10 @@
 
 - [Roadmap](roadmap/README.md): initial integrations, delivery order, prerequisites,
   acceptance criteria, and milestone status.
+- [Implementation plan](roadmap/integration-implementation-plan.md): proposed
+  native Transit composition, transactions, recovery, delivery units, and tests.
+- [Integration state/dataflow models](roadmap/integration-state-models.md):
+  concrete primitive ownership and first workflows for all 18 integrations.
 - [Integration conventions](../integrations/README.md): package layout, public
   entries, dependency boundaries, and contribution workflow.
 - [Repository README](../README.md): development environment and commands.

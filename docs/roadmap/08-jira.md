@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Jira Cloud state/dataflow model](integration-state-models.md#jira-cloud).
+
 Let applications track and update Jira work using each project's actual fields and workflow transitions.
 Planned package root: `integrations/jira/`.
 

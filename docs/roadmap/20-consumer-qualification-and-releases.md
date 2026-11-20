@@ -13,6 +13,10 @@ own completion evidence. This milestone verifies the combined 18-integration
 catalog at one source revision; it does not postpone each integration's tests.
 An earlier release may include only completed profiles and must name that subset.
 
+Use the proposed [implementation validation matrix](integration-implementation-plan.md#validation-and-state-evolution)
+and [provider state/dataflow models](integration-state-models.md) to qualify
+native transitions, selected dependency closure, and recovery across the catalog.
+
 Initially version the collection by one exact Git revision per consumer, with
 explicit protocol dependency and toolchain pins. Independent package selection
 does not require independent release trains or a package registry.

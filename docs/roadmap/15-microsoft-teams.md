@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Microsoft Teams state/dataflow model](integration-state-models.md#microsoft-teams).
+
 Let applications observe selected team conversations and publish attributable workflow messages.
 Planned package root: `integrations/microsoft-teams/`.
 

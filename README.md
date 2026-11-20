@@ -38,6 +38,10 @@ implementations are included yet. See [integration conventions](integrations/REA
 before adding the first one. The [documentation index](docs/README.md) links the
 owning guides and plans.
 
+The proposed [implementation plan](docs/roadmap/integration-implementation-plan.md)
+and [state/dataflow models](docs/roadmap/integration-state-models.md) describe native
+Transit composition for all 18 integrations and are ready for design review.
+
 The consumer model follows `tpackages`: pin one repository revision, select the
 integration subdirectories needed by the application, and import their public
 entries. Only selected integrations and their transitive dependencies should enter

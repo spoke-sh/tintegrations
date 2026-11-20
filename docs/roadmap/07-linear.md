@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Linear state/dataflow model](integration-state-models.md#linear).
+
 Let applications synchronize engineering work and submit explicit issue transitions to Linear.
 Planned package root: `integrations/linear/`.
 

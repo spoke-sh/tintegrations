@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[GitHub state/dataflow model](integration-state-models.md#github).
+
 Let applications track repository work and coordinate issue workflows using durable GitHub observations and commands.
 Planned package root: `integrations/github/`.
 

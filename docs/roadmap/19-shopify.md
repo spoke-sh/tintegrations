@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Shopify state/dataflow model](integration-state-models.md#shopify).
+
 Let applications synchronize selected commerce records and perform bounded merchant workflow updates.
 Planned package root: `integrations/shopify/`.
 

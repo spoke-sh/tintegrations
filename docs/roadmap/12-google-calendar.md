@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Google Calendar state/dataflow model](integration-state-models.md#google-calendar).
+
 Let applications reconcile selected calendars and create or update events with explicit notification policy.
 Planned package root: `integrations/google-calendar/`.
 

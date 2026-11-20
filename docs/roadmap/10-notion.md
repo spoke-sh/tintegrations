@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Notion state/dataflow model](integration-state-models.md#notion).
+
 Let applications work with selected shared knowledge resources and maintain attributable local projections.
 Planned package root: `integrations/notion/`.
 

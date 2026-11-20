@@ -42,6 +42,7 @@
               pkgs.just
               pkgs.git
               pkgs.nixfmt
+              pkgs.python3
             ];
           };
         }
@@ -83,6 +84,14 @@
                 transitc --version
                 transit build
                 transit test
+                touch "$out"
+              '';
+          evidence-tooling =
+            pkgs.runCommand "tintegrations-evidence-tooling-check" { nativeBuildInputs = [ pkgs.python3 ]; }
+              ''
+                cp -r ${./tooling} tooling
+                chmod -R u+w tooling
+                python3 -m unittest discover -s tooling/tests -v
                 touch "$out"
               '';
         }

@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Gmail state/dataflow model](integration-state-models.md#gmail).
+
 Let applications process selected mailbox observations and issue traceable draft/send commands.
 Planned package root: `integrations/gmail/`.
 

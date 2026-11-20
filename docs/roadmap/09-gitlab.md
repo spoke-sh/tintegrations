@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[GitLab state/dataflow model](integration-state-models.md#gitlab).
+
 Let applications follow project issues and merge requests and coordinate selected GitLab work-item updates.
 Planned package root: `integrations/gitlab/`.
 

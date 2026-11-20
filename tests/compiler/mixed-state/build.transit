@@ -1,0 +1,14 @@
+CREATE TARGET default AS BEGIN
+  CREATE PUBLIC TABLE operations (id TEXT PRIMARY KEY);
+  CREATE PUBLIC DOCUMENT resources (id TEXT PRIMARY KEY, status TEXT) WITH (profile = 'versioned');
+  CREATE PUBLIC KV receipts (ROW(operation TEXT));
+  CREATE PUBLIC QUEUE work (id TEXT);
+  CREATE PUBLIC STREAM outcomes (id TEXT);
+  CREATE PUBLIC DATAFLOW accept FROM COMMAND (id TEXT) AS request AS BEGIN ATOMIC
+    PUT INTO receipts KEY request.id VALUE ROW(operation => request.id) IF ABSENT;
+    INSERT INTO operations VALUES (request.id);
+    INSERT INTO resources VALUES (request.id, 'accepted');
+    ENQUEUE INTO work VALUES (request.id);
+    PRODUCE INTO outcomes VALUES (request.id);
+  END;
+END;

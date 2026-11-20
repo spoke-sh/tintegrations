@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[Airtable state/dataflow model](integration-state-models.md#airtable).
+
 Let applications map selected Airtable records to typed Transit data and synchronize explicit field changes.
 Planned package root: `integrations/airtable/`.
 

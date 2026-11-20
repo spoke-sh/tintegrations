@@ -1,0 +1,4 @@
+EXPORT MODULE Selected FROM './selected.transit';
+CREATE TARGET default AS BEGIN
+  USE Selected();
+END;

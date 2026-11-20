@@ -1,0 +1,38 @@
+-- Executable contract fixture, not a service implementation. Public fixture
+-- storage is test-owned; it does not establish private integration authority.
+
+CREATE PUBLIC MODULE Admission(
+  input_name IDENTIFIER, ledger_name IDENTIFIER, work_name IDENTIFIER,
+  output_name IDENTIFIER, flow_name IDENTIFIER, account TEXT
+) AS BEGIN
+  CREATE PUBLIC QUEUE $input_name (
+    id TEXT NOT NULL, account TEXT NOT NULL,
+    commitment TEXT NOT NULL, allowed BOOLEAN NOT NULL, accept BOOLEAN NOT NULL,
+    delivery BIGINT NOT NULL
+  );
+  CREATE PUBLIC TABLE $ledger_name (
+    id TEXT PRIMARY KEY, account TEXT NOT NULL, commitment TEXT NOT NULL
+  );
+  CREATE PUBLIC QUEUE $work_name (
+    id TEXT NOT NULL, account TEXT NOT NULL, commitment TEXT NOT NULL
+  );
+  CREATE PUBLIC STREAM $output_name (id TEXT NOT NULL, phase TEXT NOT NULL);
+  CREATE PUBLIC DATAFLOW $flow_name FROM QUEUE $input_name AS request AS BEGIN
+    BEGIN ATOMIC
+      REQUIRE request.account = $account ELSE 'WrongAccount';
+      REQUIRE request.allowed ELSE 'Denied';
+      LET previous = SELECT id, account, commitment FROM $ledger_name WHERE id = request.id;
+      IF previous IS NOT NULL THEN
+        REQUIRE previous.account = request.account AND previous.commitment = request.commitment
+          ELSE 'ConflictingOperation';
+      ELSE
+        INSERT INTO $ledger_name VALUES (request.id, request.account, request.commitment) ON CONFLICT (id) DO ASSERT SAME ROW;
+        ENQUEUE INTO $work_name VALUES (request.id, request.account, request.commitment);
+        PRODUCE INTO $output_name VALUES (request.id, 'accepted');
+        -- Fault injection after every write tests the native atomic boundary.
+        REQUIRE request.accept ELSE 'AcceptanceRefused';
+      END IF;
+    END;
+  END;
+  EXPORT QUEUE $input_name AS input;
+END;

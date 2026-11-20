@@ -1,0 +1,3 @@
+WORKSPACE integrations AS BEGIN
+  PACKAGE selected AT './selected';
+END;

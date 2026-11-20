@@ -6,6 +6,11 @@ one service. Use lowercase kebab-case names, such as `stripe`, `github`,
 owns the initial integration list and delivery status. No service integrations
 are implemented yet.
 
+The proposed [implementation plan](../docs/roadmap/integration-implementation-plan.md)
+defines how integrations compose native DATAFLOW, STREAM, QUEUE, TABLE, DOCUMENT,
+and KV primitives. Its [per-integration models](../docs/roadmap/integration-state-models.md)
+specify state ownership, first workflows, and failure cases for review.
+
 ## Package structure
 
 ```text

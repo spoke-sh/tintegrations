@@ -1,0 +1,11 @@
+CREATE TARGET default AS BEGIN
+  CREATE PUBLIC TABLE operations (id TEXT PRIMARY KEY);
+  CREATE PUBLIC QUEUE requests (id TEXT NOT NULL);
+  CREATE PUBLIC STREAM outcomes (id TEXT NOT NULL);
+  CREATE PUBLIC DATAFLOW accept FROM QUEUE requests AS request AS BEGIN
+    BEGIN ATOMIC
+      INSERT INTO operations VALUES (request.id) ON CONFLICT (id) DO ASSERT SAME ROW;
+      PRODUCE INTO outcomes VALUES (request.id);
+    END;
+  END;
+END;

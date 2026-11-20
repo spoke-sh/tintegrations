@@ -2,6 +2,9 @@
 
 [Roadmap](README.md) · **Status:** Planned
 
+Proposed implementation: [shared plan](integration-implementation-plan.md) and
+[HubSpot state/dataflow model](integration-state-models.md#hubspot).
+
 Let applications maintain selected customer and deal records, their relationships, and inspectable synchronization progress.
 Planned package root: `integrations/hubspot/`.
 
